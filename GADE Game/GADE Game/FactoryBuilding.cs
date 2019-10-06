@@ -26,6 +26,7 @@ namespace GADE_Game
 
         string unitType;
         int ySpawn;
+        int unitCost = 20;
 
         public FactoryBuilding(int xPos, int yPos, string team, string type) : base(xPos, yPos, 40, 4, team, 'B')
         {
@@ -53,18 +54,39 @@ namespace GADE_Game
 
         public Unit Spawn()
         {
-            Unit u;
 
-            if(unitType == "RangedUnit")
-            {
-                u = new RangedUnit(xPos, ySpawn, team);
-            }
-            else
-            {
-                u = new MeleeUnit(xPos, ySpawn, team);
-            }
+                if(team == "RED" && ResourceBuilding.resRed >= unitCost)
+                {
+                    Unit u;
 
-            return u;
+                    if (unitType == "RangedUnit")
+                    {
+                        u = new RangedUnit(xPos, ySpawn, team);
+                    }
+                    else
+                    {
+                        u = new MeleeUnit(xPos, ySpawn, team);
+                    }
+                    ResourceBuilding.resRed -= unitCost;
+                return u;
+                }
+                else if(team == "BLUE" && ResourceBuilding.resBlue >= unitCost)
+                {
+                    Unit u;
+
+                    if (unitType == "RangedUnit")
+                    {
+                        u = new RangedUnit(xPos, ySpawn, team);
+                    }
+                    else
+                    {
+                        u = new MeleeUnit(xPos, ySpawn, team);
+                    }
+                    ResourceBuilding.resBlue -= unitCost;
+                return u;
+                }
+
+                return null;
         }
 
         public override Unit Work()

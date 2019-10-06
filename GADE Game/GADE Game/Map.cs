@@ -20,6 +20,10 @@ namespace GADE_Game
 
         public Map(int numUnits, int numBuildings, int mapHeight, int mapWidth)
         {
+            ResourceBuilding.sharedResPool = 0;
+            ResourceBuilding.resRed = 0;
+            ResourceBuilding.resBlue = 0;
+
             this.numUnits = numUnits;
             this.numBuildings = numBuildings;
             this.mapHeight = mapHeight;

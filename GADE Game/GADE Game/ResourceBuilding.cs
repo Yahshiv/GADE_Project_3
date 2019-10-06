@@ -27,7 +27,8 @@ namespace GADE_Game
         string resType = "Cells";
         int resRate=6, resPool=100;
         public static int sharedResPool = 0;
-        public static int res = 0;
+        public static int resBlue = 0;
+        public static int resRed = 0;
 
         public ResourceBuilding(int xPos, int yPos, string team) : base(xPos, yPos, 25, 1, team, 'P')
         {
@@ -42,20 +43,40 @@ namespace GADE_Game
 
         public override string ToString()
         {
-                return "Position: " + XPos + ", " + YPos + " | Health: " + Health + "/" + maxHealth + " | Team: " + Team + " | Resources: " + res + "/" + (sharedResPool);
+            if(team == "RED")
+            {
+                return "Position: " + XPos + ", " + YPos + " | Health: " + Health + "/" + maxHealth + " | Team: " + Team + " | Resources: " + resRed + "/" + (sharedResPool+resRed);
+            }
+            return "Position: " + XPos + ", " + YPos + " | Health: " + Health + "/" + maxHealth + " | Team: " + Team + " | Resources: " + resBlue + "/" + (sharedResPool+resBlue);
         }
 
         public void genRes()
         {
-            if(resRate > resPool)
+            if(resRate > sharedResPool)
             {
-                res += resPool;
-                resPool = 0;
+                if(team=="RED")
+                {
+                    resRed += resPool;
+                    sharedResPool = 0;
+                }
+                else
+                {
+                    resBlue += resPool;
+                    sharedResPool = 0;
+                }
             }
             else
             {
-                res += resRate;
-                resPool -= resRate;
+                if (team == "RED")
+                {
+                    resRed += resRate;
+                    sharedResPool -= resRate;
+                }
+                else
+                {
+                    resBlue += resRate;
+                    sharedResPool -= resRate;
+                }
             }
         }
 
