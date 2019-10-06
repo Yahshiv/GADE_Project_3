@@ -91,6 +91,11 @@ namespace GADE_Game
                             btnMap[col, row].BackColor = Color.Blue;
                             btnMap[col, row].ForeColor = Color.White;
                         }
+                        else if (engine.UnitAtPos(col, row)[0] == 'W')
+                        {
+                            btnMap[col, row].BackColor = Color.Black;
+                            btnMap[col, row].ForeColor = Color.White;
+                        }
                     }
                     else
                     {

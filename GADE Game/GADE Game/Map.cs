@@ -16,7 +16,7 @@ namespace GADE_Game
         int numUnits, numBuildings;
         readonly int mapHeight, mapWidth;
 
-        string[] teams = { "RED", "BLUE" };
+        string[] teams = { "RED", "BLUE" , "WIZ" };
 
         public Map(int numUnits, int numBuildings, int mapHeight, int mapWidth)
         {
@@ -62,7 +62,7 @@ namespace GADE_Game
                 int x = Unit.rnd.Next(0, mapWidth);
                 int y = Unit.rnd.Next(0, mapHeight);
                 int teamID = Unit.rnd.Next(0, 2);
-                int unitType = Unit.rnd.Next(0, 2);
+                int unitType = Unit.rnd.Next(0, 3);
 
                 if (unitType == 0)
                 {
@@ -76,7 +76,7 @@ namespace GADE_Game
                     map[x, y] = "" + units[i].Team[0] + units[i].Sym;
 
                 }
-                else
+                else if(unitType == 1)
                 {                
                     do
                     {
@@ -84,6 +84,17 @@ namespace GADE_Game
                         y = Unit.rnd.Next(0, mapHeight);
                     } while (map[x, y] != "~~");
                     units[i] = new RangedUnit(x, y, teams[teamID]);
+
+                    map[x, y] = "" + units[i].Team[0] + units[i].Sym;
+                }
+                else
+                {
+                    do
+                    {
+                        x = Unit.rnd.Next(0, mapWidth);
+                        y = Unit.rnd.Next(0, mapHeight);
+                    } while (map[x, y] != "~~");
+                    units[i] = new Wizard(x, y, teams[2]);
 
                     map[x, y] = "" + units[i].Team[0] + units[i].Sym;
                 }

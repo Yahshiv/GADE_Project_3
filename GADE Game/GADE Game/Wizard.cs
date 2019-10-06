@@ -8,7 +8,7 @@ namespace GADE_Game
 {
     class Wizard : Unit
     {
-        public Wizard(int x, int y, string team) : base(x, y, 20, 1, 5, 1.9, team, 'W')
+        public Wizard(int x, int y, string team) : base(x, y, 20, 1, 10, 1.9, team, 'W')
         {
             name = "Wizard";
         }
