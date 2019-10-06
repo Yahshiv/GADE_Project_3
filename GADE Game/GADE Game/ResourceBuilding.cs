@@ -24,12 +24,15 @@ namespace GADE_Game
 
         public override string Name { get => name; }
 
-        string resType;
-        int res = 0, resRate=6, resPool=100;
+        string resType = "Cells";
+        int resRate=6, resPool=100;
+        public static int sharedResPool = 0;
+        public static int res = 0;
 
         public ResourceBuilding(int xPos, int yPos, string team) : base(xPos, yPos, 25, 1, team, 'P')
         {
             name = "Resource";
+            sharedResPool += resPool;
         }
 
         public override void Die()
@@ -39,7 +42,7 @@ namespace GADE_Game
 
         public override string ToString()
         {
-                return "Position: " + XPos + ", " + YPos + " | Health: " + Health + "/" + maxHealth + " | Team: " + Team + " | Resources: " + res + "/" + (resPool+res);
+                return "Position: " + XPos + ", " + YPos + " | Health: " + Health + "/" + maxHealth + " | Team: " + Team + " | Resources: " + res + "/" + (sharedResPool);
         }
 
         public void genRes()
