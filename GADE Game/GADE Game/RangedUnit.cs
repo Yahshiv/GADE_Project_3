@@ -134,7 +134,7 @@ namespace GADE_Game
                             yPos++;
                         }
                     }
-                    else if (xPos == 0 && yPos == 19) //bottom left corner
+                    else if (xPos == 0 && yPos == GADEGame.MAPHEIGHT) //bottom left corner
                     {
                         if (rnd.Next(0, 2) == 0)
                         {
@@ -145,7 +145,7 @@ namespace GADE_Game
                             yPos--;
                         }
                     }
-                    else if (xPos == 19 && yPos == 19) //bottom right corner
+                    else if (xPos == GADEGame.MAPWIDTH && yPos == GADEGame.MAPHEIGHT) //bottom right corner
                     {
                         if (rnd.Next(0, 2) == 0)
                         {
@@ -156,7 +156,7 @@ namespace GADE_Game
                             yPos--;
                         }
                     }
-                    else if (xPos == 19 && yPos == 0) //top right corner
+                    else if (xPos == GADEGame.MAPWIDTH && yPos == 0) //top right corner
                     {
                         if (rnd.Next(0, 2) == 0)
                         {
@@ -197,7 +197,7 @@ namespace GADE_Game
                             xPos--;
                         }
                     }
-                    else if (xPos == 19) //right edge
+                    else if (xPos == GADEGame.MAPWIDTH) //right edge
                     {
                         if (rnd.Next(0, 3) == 0)
                         {
@@ -212,7 +212,7 @@ namespace GADE_Game
                             yPos--;
                         }
                     }
-                    else if (yPos == 19) //bottom edge
+                    else if (yPos == GADEGame.MAPHEIGHT) //bottom edge
                     {
                         if (rnd.Next(0, 3) == 0)
                         {
