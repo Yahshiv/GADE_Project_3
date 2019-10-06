@@ -14,9 +14,11 @@ namespace GADE_Game
         string winner = "";
         int round = 0;
 
-        public GameEngine(int numUnits, int numBuildings)
+        int mapHeight, mapWidth;
+
+        public GameEngine(int numUnits, int numBuildings, int mapHeight, int mapWidth)
         {
-            map = new Map(numUnits, numBuildings);
+            map = new Map(numUnits, numBuildings, mapHeight, mapWidth);
         }
 
         public bool End
@@ -40,9 +42,9 @@ namespace GADE_Game
             get { return map.GetMapStr(); }
         }
 
-        public void Reset(int numUnits, int numBuildings)
+        public void Reset(int numUnits, int numBuildings, int mapHeight, int mapWidth)
         {
-            map = new Map(numUnits, numBuildings);
+            map = new Map(numUnits, numBuildings, mapHeight, mapWidth);
             end = false;
             round = 0;
         }

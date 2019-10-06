@@ -12,19 +12,24 @@ namespace GADE_Game
 {
     public partial class GADEGame : Form
     {
-        public const int MAPHEIGHT = 20;
-        public const int MAPWIDTH = 20;
+        public static int MAPHEIGHT;
+        public static int MAPWIDTH;
         const int TILEHEIGHT = 16;
         const int TILEWIDTH = 16;
         const int MAPXOFFSET = 9;
         const int MAPYOFFSET = 12;
         GameEngine engine;
         Timer timer;
-        Button[,] btnMap = new Button[MAPWIDTH, MAPHEIGHT];
+        Button[,] btnMap;
 
         public GADEGame()
         {
             InitializeComponent();
+
+            MAPHEIGHT = int.Parse(tbMapSizeY.Text);
+            MAPWIDTH = int.Parse(tbMapSizeX.Text);
+            btnMap = new Button[MAPWIDTH, MAPHEIGHT];
+
 
             for (int row = 0; row < MAPHEIGHT; row++)//y
             {
@@ -41,7 +46,7 @@ namespace GADE_Game
                 }
             }
 
-            engine = new GameEngine(Convert.ToInt32(tbNumUnits.Text), Convert.ToInt32(tbNumBuildings.Text));
+            engine = new GameEngine(Convert.ToInt32(tbNumUnits.Text), Convert.ToInt32(tbNumBuildings.Text), MAPHEIGHT, MAPWIDTH);
 
             UpdateUI();
 
@@ -109,7 +114,35 @@ namespace GADE_Game
             }
             else
             {
-                engine.Reset(Convert.ToInt32(tbNumUnits.Text), Convert.ToInt32(tbNumBuildings.Text));
+                for (int row = 0; row < MAPHEIGHT; row++)//y
+                {
+                    for (int col = 0; col < MAPWIDTH; col++)//x
+                    {
+                        Controls.Remove(btnMap[col, row]);
+                    }
+                }
+
+                MAPHEIGHT = int.Parse(tbMapSizeY.Text);
+                MAPWIDTH = int.Parse(tbMapSizeX.Text);
+                btnMap = new Button[MAPWIDTH, MAPHEIGHT];
+
+                for (int row = 0; row < MAPHEIGHT; row++)//y
+                {
+                    for (int col = 0; col < MAPWIDTH; col++)//x
+                    {
+                        Point p = new Point(TILEWIDTH * col + MAPXOFFSET - col, TILEHEIGHT * row + MAPYOFFSET - row);
+                        Button btnTemp = new Button();
+                        btnTemp.Location = p;
+                        btnTemp.Height = TILEHEIGHT;
+                        btnTemp.Width = TILEWIDTH;
+
+                        btnMap[col, row] = btnTemp;
+                        Controls.Add(btnMap[col, row]);
+                    }
+                }
+
+                engine.Reset(Convert.ToInt32(tbNumUnits.Text), Convert.ToInt32(tbNumBuildings.Text), MAPHEIGHT, MAPWIDTH);
+                UpdateUI();
                 timer.Start();
                 btnStart.Text = "Stop";
             } 
@@ -143,6 +176,11 @@ namespace GADE_Game
             engine.LoadBuildings();
             engine.Round = 0;
             UpdateUI();
+        }
+
+        private void GADEGame_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

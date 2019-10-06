@@ -14,12 +14,16 @@ namespace GADE_Game
         public static Unit[] units;
         static Building[] buildings;
         int numUnits, numBuildings;
+        readonly int mapHeight, mapWidth;
+
         string[] teams = { "RED", "BLUE" };
 
-        public Map(int numUnits, int numBuildings)
+        public Map(int numUnits, int numBuildings, int mapHeight, int mapWidth)
         {
             this.numUnits = numUnits;
             this.numBuildings = numBuildings;
+            this.mapHeight = mapHeight;
+            this.mapWidth = mapWidth;
             map = new string[GADEGame.MAPWIDTH, GADEGame.MAPHEIGHT];
             units = new Unit[numUnits];
             buildings = new Building[numBuildings];
@@ -39,9 +43,9 @@ namespace GADE_Game
 
         public void Randomize()
         {
-            for (int y = 0; y < 20; y++)
+            for (int y = 0; y < GADEGame.MAPHEIGHT; y++)
             {
-                for (int x = 0; x < 20; x++)
+                for (int x = 0; x < GADEGame.MAPWIDTH; x++)
                 {
                     map[x, y] = "~~";
                 }
@@ -145,9 +149,9 @@ namespace GADE_Game
 
         public void UpdateMap()
         {
-            for (int y = 0; y < 20; y++)
+            for (int y = 0; y < GADEGame.MAPHEIGHT; y++)
             {
-                for (int x = 0; x < 20; x++)
+                for (int x = 0; x < GADEGame.MAPWIDTH; x++)
                 {
                     map[x, y] = "~~";
                 }
