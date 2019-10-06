@@ -24,7 +24,7 @@ namespace GADE_Game
             this.numBuildings = numBuildings;
             this.mapHeight = mapHeight;
             this.mapWidth = mapWidth;
-            map = new string[GADEGame.MAPWIDTH, GADEGame.MAPHEIGHT];
+            map = new string[mapHeight, mapWidth];
             units = new Unit[numUnits];
             buildings = new Building[numBuildings];
             Randomize();
@@ -43,9 +43,9 @@ namespace GADE_Game
 
         public void Randomize()
         {
-            for (int y = 0; y < GADEGame.MAPHEIGHT; y++)
+            for (int y = 0; y < mapHeight; y++)
             {
-                for (int x = 0; x < GADEGame.MAPWIDTH; x++)
+                for (int x = 0; x < mapWidth; x++)
                 {
                     map[x, y] = "~~";
                 }
@@ -55,8 +55,8 @@ namespace GADE_Game
 
             for (int i = 0; i < numUnits; i++)
             {
-                int x = Unit.rnd.Next(0, GADEGame.MAPWIDTH);
-                int y = Unit.rnd.Next(0, GADEGame.MAPHEIGHT);
+                int x = Unit.rnd.Next(0, mapWidth);
+                int y = Unit.rnd.Next(0, mapHeight);
                 int teamID = Unit.rnd.Next(0, 2);
                 int unitType = Unit.rnd.Next(0, 2);
 
@@ -64,8 +64,8 @@ namespace GADE_Game
                 {
                     do
                     {
-                        x = Unit.rnd.Next(0, GADEGame.MAPWIDTH);
-                        y = Unit.rnd.Next(0, GADEGame.MAPHEIGHT);
+                        x = Unit.rnd.Next(0, mapWidth);
+                        y = Unit.rnd.Next(0, mapHeight);
                     } while (map[x, y] != "~~");
                     units[i] = new MeleeUnit(x, y, teams[teamID]);
 
@@ -76,8 +76,8 @@ namespace GADE_Game
                 {                
                     do
                     {
-                        x = Unit.rnd.Next(0, GADEGame.MAPWIDTH);
-                        y = Unit.rnd.Next(0, GADEGame.MAPHEIGHT);
+                        x = Unit.rnd.Next(0, mapWidth);
+                        y = Unit.rnd.Next(0, mapHeight);
                     } while (map[x, y] != "~~");
                     units[i] = new RangedUnit(x, y, teams[teamID]);
 
@@ -87,8 +87,8 @@ namespace GADE_Game
 
             for (int j = 0; j < numBuildings; j++)
             {
-                int x = Unit.rnd.Next(0, GADEGame.MAPWIDTH);
-                int y = Unit.rnd.Next(0, GADEGame.MAPHEIGHT);
+                int x = Unit.rnd.Next(0, mapWidth);
+                int y = Unit.rnd.Next(0, mapHeight);
                 int teamID = Unit.rnd.Next(0, 2);
                 int buildingType = Unit.rnd.Next(0, 2);
 
@@ -107,8 +107,8 @@ namespace GADE_Game
 
                     do
                     {
-                        x = Unit.rnd.Next(0, GADEGame.MAPWIDTH);
-                        y = Unit.rnd.Next(0, GADEGame.MAPHEIGHT);
+                        x = Unit.rnd.Next(0, mapWidth);
+                        y = Unit.rnd.Next(0, mapHeight);
                     } while (map[x, y] != "~~");
                     buildings[j] = new FactoryBuilding(x, y, teams[teamID], unitType);
 
@@ -118,8 +118,8 @@ namespace GADE_Game
                 {
                     do
                     {
-                        x = Unit.rnd.Next(0, GADEGame.MAPWIDTH);
-                        y = Unit.rnd.Next(0, GADEGame.MAPHEIGHT);
+                        x = Unit.rnd.Next(0, mapWidth);
+                        y = Unit.rnd.Next(0, mapHeight);
                     } while (map[x, y] != "~~");
                     buildings[j] = new ResourceBuilding(x, y, teams[teamID]);
 
@@ -131,9 +131,9 @@ namespace GADE_Game
         public string GetMapStr()
         {
             string mapStr = "";
-            for(int row = 0; row < GADEGame.MAPHEIGHT; row++)
+            for(int row = 0; row < mapHeight; row++)
             {
-                for(int col = 0; col < GADEGame.MAPWIDTH; col++)
+                for(int col = 0; col < mapWidth; col++)
                 {
                     mapStr += map[col, row];
                 }
@@ -149,9 +149,9 @@ namespace GADE_Game
 
         public void UpdateMap()
         {
-            for (int y = 0; y < GADEGame.MAPHEIGHT; y++)
+            for (int y = 0; y < mapHeight; y++)
             {
-                for (int x = 0; x < GADEGame.MAPWIDTH; x++)
+                for (int x = 0; x < mapWidth; x++)
                 {
                     map[x, y] = "~~";
                 }
