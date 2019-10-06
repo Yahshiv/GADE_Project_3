@@ -12,7 +12,7 @@ namespace GADE_Game
     {
         static string[,] map = new string[GADEGame.MAPWIDTH, GADEGame.MAPHEIGHT];
         public static Unit[] units;
-        static Building[] buildings;
+        public static Building[] buildings;
         int numUnits, numBuildings;
         readonly int mapHeight, mapWidth;
 
@@ -167,7 +167,10 @@ namespace GADE_Game
 
             foreach (Building b in buildings)
             {
+                if(b.Health>0)
+                {
                 map[b.XPos, b.YPos] = "" + b.Team[0] + b.Sym;
+                }
             }
         }
 

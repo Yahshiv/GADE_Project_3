@@ -51,6 +51,17 @@ namespace GADE_Game
             }
         }
 
+        public override void Attack(Building target)
+        {
+            isBattling = true;
+            target.Health -= atk;
+
+            if (target.Health <= 0)
+            {
+                target.Die();
+            }
+        }
+
         public override void Die()
         {
             isDead = true;
@@ -59,6 +70,18 @@ namespace GADE_Game
         }
 
         public override bool IsInRange(Unit target)
+        {
+            if (Math.Sqrt(Math.Pow(XPos - target.XPos, 2) + Math.Pow(YPos - target.YPos, 2)) <= range)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public override bool IsInRange(Building target)
         {
             if (Math.Sqrt(Math.Pow(XPos - target.XPos, 2) + Math.Pow(YPos - target.YPos, 2)) <= range)
             {
@@ -227,6 +250,163 @@ namespace GADE_Game
             }
         }
 
+        public override void Move(Building target)
+        {
+            {
+                if (Health >= maxHealth * 0.25)
+                {
+                    if (Math.Pow(XPos - target.XPos, 2) >= Math.Pow(YPos - target.YPos, 2))
+                    {
+                        if (XPos - target.XPos > 0)
+                        {
+                            XPos--;
+                        }
+                        else
+                        {
+                            XPos++;
+                        }
+                    }
+                    else
+                    {
+                        if (YPos - target.YPos > 0)
+                        {
+                            YPos--;
+                        }
+                        else
+                        {
+                            YPos++;
+                        }
+                    }
+                }
+                else
+                {
+                    if (xPos == 0 && yPos == 0) //top left corner
+                    {
+                        if (rnd.Next(0, 2) == 0)
+                        {
+                            xPos++;
+                        }
+                        else
+                        {
+                            yPos++;
+                        }
+                    }
+                    else if (xPos == 0 && yPos == 19) //bottom left corner
+                    {
+                        if (rnd.Next(0, 2) == 0)
+                        {
+                            xPos++;
+                        }
+                        else
+                        {
+                            yPos--;
+                        }
+                    }
+                    else if (xPos == 19 && yPos == 19) //bottom right corner
+                    {
+                        if (rnd.Next(0, 2) == 0)
+                        {
+                            xPos--;
+                        }
+                        else
+                        {
+                            yPos--;
+                        }
+                    }
+                    else if (xPos == 19 && yPos == 0) //top right corner
+                    {
+                        if (rnd.Next(0, 2) == 0)
+                        {
+                            xPos--;
+                        }
+                        else
+                        {
+                            yPos++;
+                        }
+                    }
+                    else if (xPos == 0) //left edge
+                    {
+                        if (rnd.Next(0, 3) == 0)
+                        {
+                            xPos++;
+                        }
+                        else if (rnd.Next(0, 2) == 0)
+                        {
+                            yPos++;
+                        }
+                        else
+                        {
+                            yPos--;
+                        }
+                    }
+                    else if (yPos == 0) //top edge
+                    {
+                        if (rnd.Next(0, 3) == 0)
+                        {
+                            yPos++; ;
+                        }
+                        else if (rnd.Next(0, 2) == 0)
+                        {
+                            xPos++;
+                        }
+                        else
+                        {
+                            xPos--;
+                        }
+                    }
+                    else if (xPos == 19) //right edge
+                    {
+                        if (rnd.Next(0, 3) == 0)
+                        {
+                            xPos--;
+                        }
+                        else if (rnd.Next(0, 2) == 0)
+                        {
+                            yPos++;
+                        }
+                        else
+                        {
+                            yPos--;
+                        }
+                    }
+                    else if (yPos == 19) //bottom edge
+                    {
+                        if (rnd.Next(0, 3) == 0)
+                        {
+                            yPos--;
+                        }
+                        else if (rnd.Next(0, 2) == 0)
+                        {
+                            xPos++;
+                        }
+                        else
+                        {
+                            xPos--;
+                        }
+                    }
+                    else
+                    {
+                        if ((rnd.Next(0, 4) == 0))
+                        {
+                            yPos++;
+                        }
+                        else if (rnd.Next(0, 3) == 0)
+                        {
+                            yPos--;
+                        }
+                        else if (rnd.Next(0, 2) == 0)
+                        {
+                            xPos++;
+                        }
+                        else
+                        {
+                            xPos--;
+                        }
+                    }
+                }
+            }
+        }
+
         public override Unit SeekTarget(Unit[] units)
         {
             double dist = int.MaxValue;
@@ -246,6 +426,30 @@ namespace GADE_Game
                 {
                     dist = temp;
                     target = u;
+                }
+            }
+            return target;
+        }
+
+        public override Building SeekTarget(Building[] buildings)
+        {
+            double dist = int.MaxValue;
+            double temp;
+            Building target = null;
+
+            foreach (Building b in buildings)
+            {
+                if (b.Team == team || b.Health <= 0)
+                {
+                    continue;
+                }
+
+                temp = Math.Sqrt(Math.Pow(XPos - b.XPos, 2) + Math.Pow(YPos - b.YPos, 2));
+
+                if (temp < dist)
+                {
+                    dist = temp;
+                    target = b;
                 }
             }
             return target;

@@ -57,30 +57,47 @@ namespace GADE_Game
                 {
                     continue;
                 }
-                
-                Unit target = u.SeekTarget(map.Units);
 
-                if (target == null)
-                {
-                    end = true;
-                    winner = u.Team;
-                    map.UpdateMap();
-                    return;
-                }
+                Building targetB = u.SeekTarget(map.Buildings);
 
-                if(u.Health > u.MaxHealth/4 && u.IsInRange(target))
+                if(targetB==null)
                 {
-                    u.Attack(target);
+                    Unit target = u.SeekTarget(map.Units);
+
+                    if (target == null)
+                    {
+                        end = true;
+                        winner = u.Team;
+                        map.UpdateMap();
+                        return;
+                    }
+
+                    if (u.Health > u.MaxHealth / 4 && u.IsInRange(target))
+                    {
+                        u.Attack(target);
+                    }
+                    else
+                    {
+                        u.Move(target);
+                    }
                 }
                 else
                 {
-                    u.Move(target);
+                    if (u.Health > u.MaxHealth / 4 && u.IsInRange(targetB))
+                    {
+                        u.Attack(targetB);
+                    }
+                    else
+                    {
+                        u.Move(targetB);
+                    }
                 }
+
             }
 
             foreach(Building b in map.Buildings)
             {
-                if(round%b.Speed != 0)
+                if(b.Health<=0 || round%b.Speed != 0)
                 {
                     continue;
                 }
