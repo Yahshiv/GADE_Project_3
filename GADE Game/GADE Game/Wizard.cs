@@ -40,7 +40,7 @@ namespace GADE_Game
         public override bool IsDead { get => isDead; }
 
 
-        public override void Attack(Unit target)
+        public override void Attack(Unit target)//loops through the area around the Wizard and attacks all units with matching location values
         {
             for (int i = yPos - 1; i < yPos + 2; i++)
             {
@@ -68,7 +68,7 @@ namespace GADE_Game
             }
         }
 
-        public override void Attack(Building target)
+        public override void Attack(Building target)//cannot attack buildings
         {
 
         }
@@ -92,7 +92,7 @@ namespace GADE_Game
             }
         }
 
-        public override bool IsInRange(Building target)
+        public override bool IsInRange(Building target)//cannot attack buildings
         {
             return false;
         }
@@ -254,7 +254,7 @@ namespace GADE_Game
             }
         }
 
-        public override void Move(Building target)
+        public override void Move(Building target)//cannot attack buildings
         {
             
         }
@@ -283,7 +283,7 @@ namespace GADE_Game
             return target;
         }
 
-        public override Building SeekTarget(Building[] buildings)
+        public override Building SeekTarget(Building[] buildings)//cannot attack buildings
         {
             return null;
         }

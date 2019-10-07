@@ -50,7 +50,7 @@ namespace GADE_Game
             return "Position: " + XPos + ", " + YPos + " | Health: " + Health + "/" + maxHealth + " | Team: " + Team + " | Resources: " + resBlue + "/" + (sharedResPool+resBlue);
         }
 
-        public void genRes()
+        public void genRes()//updated to work with static resource fields
         {
             if(resRate > sharedResPool)
             {

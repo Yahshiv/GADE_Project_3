@@ -52,7 +52,7 @@ namespace GADE_Game
                 return "Position: " + XPos + ", " + YPos + " | Health: " + Health + "/" + maxHealth + " | Team: " + Team;
         }
 
-        public Unit Spawn()
+        public Unit Spawn()//updated to work with static resource fields
         {
 
                 if(team == "RED" && ResourceBuilding.resRed >= unitCost)

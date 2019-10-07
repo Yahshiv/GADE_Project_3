@@ -51,20 +51,20 @@ namespace GADE_Game
 
         public void GameRound()
         {
-            foreach(Unit u in map.Units)
+            foreach(Unit u in map.Units)//each unit gets a turn
             {
-                if(u.IsDead || round%u.Speed != 0)
+                if(u.IsDead || round%u.Speed != 0)//skips its turn if its dead or is not a valid round with speed
                 {
                     continue;
                 }
 
-                Building targetB = u.SeekTarget(map.Buildings);
+                Building targetB = u.SeekTarget(map.Buildings);//targets a building (or null if no building)
 
-                if(targetB==null)
+                if(targetB==null)//no buildings available
                 {
-                    Unit target = u.SeekTarget(map.Units);
+                    Unit target = u.SeekTarget(map.Units);//target a unit
 
-                    if (target == null)
+                    if (target == null)//no unit available -> end round
                     {
                         end = true;
                         winner = u.Team;
@@ -72,22 +72,22 @@ namespace GADE_Game
                         return;
                     }
 
-                    if (u.Health > u.MaxHealth / 4 && u.IsInRange(target))
+                    if (u.Health > u.MaxHealth / 4 && u.IsInRange(target))//attack unit
                     {
                         u.Attack(target);
                     }
-                    else
+                    else//move or runaway
                     {
                         u.Move(target);
                     }
                 }
                 else
                 {
-                    if (u.Health > u.MaxHealth / 4 && u.IsInRange(targetB))
+                    if (u.Health > u.MaxHealth / 4 && u.IsInRange(targetB))//attack building
                     {
                         u.Attack(targetB);
                     }
-                    else
+                    else//move or runaway
                     {
                         u.Move(targetB);
                     }
@@ -95,15 +95,15 @@ namespace GADE_Game
 
             }
 
-            foreach(Building b in map.Buildings)
+            foreach(Building b in map.Buildings)//building turns
             {
-                if(b.Health<=0 || round%b.Speed != 0)
+                if(b.Health<=0 || round%b.Speed != 0)//if dead or not turn, skip
                 {
                     continue;
                 }
 
-                Unit temp = b.Work();
-                if(temp != null)
+                Unit temp = b.Work();//do function
+                if(temp != null)//if a unit was returned, create it and ammend array
                 {
                     Array.Resize(ref Map.units, map.Units.Length + 1);
                     Map.units[map.Units.Length - 1] = temp;

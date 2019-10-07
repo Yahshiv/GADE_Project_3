@@ -91,7 +91,7 @@ namespace GADE_Game
                             btnMap[col, row].BackColor = Color.Blue;
                             btnMap[col, row].ForeColor = Color.White;
                         }
-                        else if (engine.UnitAtPos(col, row)[0] == 'W')
+                        else if (engine.UnitAtPos(col, row)[0] == 'W')//WIZARDS GET BLACK TILES
                         {
                             btnMap[col, row].BackColor = Color.Black;
                             btnMap[col, row].ForeColor = Color.White;

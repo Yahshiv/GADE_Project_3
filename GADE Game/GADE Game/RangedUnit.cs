@@ -39,7 +39,7 @@ namespace GADE_Game
 
         public override bool IsDead { get => isDead; }
 
-
+        
         public override void Attack(Unit target)
         {
             isBattling = true;
@@ -51,7 +51,7 @@ namespace GADE_Game
             }
         }
 
-        public override void Attack(Building target)
+        public override void Attack(Building target)//duplicated various Unit focused methods to work for buildings as well
         {
             isBattling = true;
             target.Health -= atk;
@@ -81,7 +81,7 @@ namespace GADE_Game
             }
         }
 
-        public override bool IsInRange(Building target)
+        public override bool IsInRange(Building target)//duplicated various Unit focused methods to work for buildings as well
         {
             if (Math.Sqrt(Math.Pow(XPos - target.XPos, 2) + Math.Pow(YPos - target.YPos, 2)) <= range)
             {
@@ -250,7 +250,7 @@ namespace GADE_Game
             }
         }
 
-        public override void Move(Building target)
+        public override void Move(Building target)//duplicated various Unit focused methods to work for buildings as well
         {
             {
                 if (Health >= maxHealth * 0.25)
@@ -431,7 +431,7 @@ namespace GADE_Game
             return target;
         }
 
-        public override Building SeekTarget(Building[] buildings)
+        public override Building SeekTarget(Building[] buildings)//duplicated various Unit focused methods to work for buildings as well
         {
             double dist = int.MaxValue;
             double temp;

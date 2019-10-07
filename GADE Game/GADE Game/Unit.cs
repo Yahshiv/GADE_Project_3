@@ -31,13 +31,13 @@ namespace GADE_Game
         }
 
         public abstract void Move(Unit target);
-        public abstract void Move(Building target);
+        public abstract void Move(Building target);//duplicated various Unit focused methods to work for buildings as well
         public abstract void Attack(Unit targetUnit);
-        public abstract void Attack(Building targetBuilding);
+        public abstract void Attack(Building targetBuilding);//duplicated various Unit focused methods to work for buildings as well
         public abstract bool IsInRange(Unit targetUnit);
-        public abstract bool IsInRange(Building targetBuilding);
+        public abstract bool IsInRange(Building targetBuilding);//duplicated various Unit focused methods to work for buildings as well
         public abstract Unit SeekTarget(Unit[] units);
-        public abstract Building SeekTarget(Building[] buildings);
+        public abstract Building SeekTarget(Building[] buildings);//duplicated various Unit focused methods to work for buildings as well
         public abstract void Die();
         public abstract override string ToString();
 
